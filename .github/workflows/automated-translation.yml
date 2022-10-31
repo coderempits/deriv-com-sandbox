@@ -24,3 +24,4 @@ jobs:
             - name: Installing Crowdin
               run: npm i -g @crowdin/cli
             - name: 'Running Automated Translation 🤖 - ${{matrix.lang}}'
+            - run: echo 'Translating....'
