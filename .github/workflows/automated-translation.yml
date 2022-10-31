@@ -1,7 +1,7 @@
 name: Automated Translation Workflow
 on: [push]
 jobs:
-    Automated-Translation-Workflow-Actions:
+    Translation:
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -9,5 +9,18 @@ jobs:
                 lang: [ar, bn, de, es, ko]
 
         steps:
-            - run: echo "🤖 Running Automated Translation Workflow"
-            - run: echo "Automatically translating ${{matrix.lang}}"
+            - name: 'Source: [${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}]'
+              run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
+            - name: Checkout ⬇️
+              uses: actions/checkout@v2.3.1
+              with:
+                  fetch-depth: 0
+                  ref: ${{ github.event.workflow_run.head_branch }}
+                  repository: ${{github.event.workflow_run.head_repository.full_name}}
+            - name: Setup Node
+              uses: actions/setup-node@v2.1.2
+              with:
+                  node-version: '16.x'
+            - name: Installing Crowdin
+              run: npm i -g @crowdin/cli
+            - name: 'Running Automated Translation 🤖 - ${{matrix.lang}}'
