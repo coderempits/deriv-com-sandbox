@@ -1,0 +1,13 @@
+name: Automated Translation Workflow
+on: [push]
+jobs:
+    Automated-Translation-Workflow-Actions:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                # Currently supported languages - Arabic [ar], Bangladesh [bn], German [de], Spanish [es], Korean [ko]
+                lang: [ar, bn, de, es, ko]
+
+        steps:
+            - run: echo "🤖 Running Automated Translation Workflow"
+            - run: echo "Automatically translating ${matrix.lang}"
