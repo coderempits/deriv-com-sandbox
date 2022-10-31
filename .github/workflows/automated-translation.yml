@@ -10,4 +10,4 @@ jobs:
 
         steps:
             - run: echo "🤖 Running Automated Translation Workflow"
-            - run: echo "Automatically translating ${matrix.lang}"
+            - run: echo "Automatically translating ${{matrix.lang}}"
