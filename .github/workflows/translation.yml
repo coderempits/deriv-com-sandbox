@@ -29,8 +29,6 @@ jobs:
                   node-version: '16.x'
             - name: Installing Crowdin 📦
               run: npm i -g @crowdin/cli
-            - name: 'Running Automated Translation 🤖 [Language Code: ${{matrix.lang}}]'
-              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
             - name: Download and Commit New Translations
               if: github.event.workflow_run.head_commit.message == 'auto-pull-translation'
               run: |
@@ -46,5 +44,7 @@ jobs:
                     git commit -m "translation: 📚 sync translations from crowdin feature branch"
                     git push origin ${{ github.event.workflow_run.head_branch }}
                   fi
+            - name: 'Running Automated Translation 🤖 [Language Code: ${{matrix.lang}}]'
+              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
             - name: Pushing Strings & Translations ⬆️
               run: crowdin upload sources -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }}; crowdin upload translations -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }}
