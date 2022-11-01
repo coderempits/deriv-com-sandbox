@@ -17,10 +17,7 @@ jobs:
 
         steps:
             - name: 'Checking what the fak is null'
-              run: echo '${{ github }}'
-                   echo '${{ github.event }}'
-                   echo '${{ github.event.workflow_run }}' 
-                   echo '${{ github.event.workflow_run.head_repository }}' 
+              run: echo '${{ toJson(github) }}'
             - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
               run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
             - name: Checkout ⬇️
