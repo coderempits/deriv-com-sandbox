@@ -44,7 +44,7 @@ jobs:
                     git commit -m "translation: 📚 sync translations from crowdin feature branch"
                     git push origin ${{ github.event.workflow_run.head_branch }}
                   fi
-            - name: 'Running Automated Translation 🤖 [Language Code: ${{matrix.lang}}]'
-              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
+            - name: 'Running Automated Translation 🤖 [Language Code: ${{ matrix.lang }}]'
+              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} --language "${{ matrix.lang }}" -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
             - name: Pushing Strings & Translations ⬆️
               run: crowdin upload sources -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }}; crowdin upload translations -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }}
