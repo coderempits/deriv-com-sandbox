@@ -77,7 +77,7 @@ const Home = () => {
         <Layout type="transparent" margin_top="0">
             <SEO
                 title={localize(
-                    'Online trading platform | Forex, commodities, synthetic indices, stocks, and stock indices | Deriv',
+                    'The best online trading platform | Forex, commodities, synthetic indices, stocks, and stock indices | Deriv',
                 )}
                 description={localize(
                     'Deriv: an online trading platform available 24/7 with a wide selection of derivatives.',
