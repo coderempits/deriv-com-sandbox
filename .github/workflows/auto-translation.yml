@@ -12,7 +12,7 @@ jobs:
                 # Add languages to automatically translate here. (2 letter language code)
                 # (Ref: https://www.loc.gov/standards/iso639-2/php/code_list.php)
                 # Be sure that the translation engine selected supports the language
-                lang: [ar, bn, de, es, ko]
+                lang: [ar, bn, de, es-ES, ko]
         steps:
             - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
               run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
