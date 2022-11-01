@@ -14,6 +14,20 @@ jobs:
                 # Be sure that the translation engine selected supports the language
                 lang: [ar, bn, de, es, ko]
         steps:
+            - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
+              run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
+            - name: Checkout ⬇️
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+                  ref: ${{ github.event.workflow_run.head_branch }}
+                  repository: ${{ github.event.workflow_run.head_repository.full_name }}
+            - name: Setup Node 📦
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '16.x'
+            - name: Installing Crowdin 📦
+              run: npm i -g @crowdin/cli
             - name: 'Running Automated Translation 🤖 [Language Code: ${{ matrix.lang }}]'
               run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} --language "${{ matrix.lang }}" -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
             - name: Download and Commit Translations from MT
