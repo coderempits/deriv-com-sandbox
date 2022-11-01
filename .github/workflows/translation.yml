@@ -1,7 +1,7 @@
 name: Translation
 on:
     workflow_run:
-        workflows: ['Pre Translation']
+        workflows: ['Pre-Translation']
         types:
             - completed
 jobs:
