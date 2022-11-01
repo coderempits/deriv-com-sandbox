@@ -58,9 +58,9 @@ const AvailableMarkets = () => {
                                 </MobileCardHeader>
                                 <Text>
                                     {is_eu_country ? (
-                                        <Localize translate_text="Access over 30 assets and also trade with up to 1:30 leverage and zero commission on trades." />
+                                        <Localize translate_text="Access over 100 assets and also trade with up to 1:30 leverage and zero commission on trades." />
                                     ) : (
-                                        <Localize translate_text="Access over 50 assets and also trade with up to 1:1000 leverage and zero commission on trades." />
+                                        <Localize translate_text="Access over 500 assets and also trade with up to 1:1000 leverage and zero commission on trades." />
                                     )}
                                 </Text>
                                 <LearnMore

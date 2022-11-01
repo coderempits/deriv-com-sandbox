@@ -1,12 +1,12 @@
 name: Translation
 on:
-    workflow_run:
-        workflows: ['Pre Translation']
-        types:
-            - completed
+    pull_request:
+        types: [opened, reopened, synchronize]
+        branches:
+            - 'main'
+            - 'master'
 jobs:
     push-translation:
-        if: startsWith(github.event.workflow_run.head_branch, 'translation') || startsWith(github.event.workflow_run.head_branch, 'stp')
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -16,14 +16,14 @@ jobs:
                 lang: [ar, bn, de, es, ko]
 
         steps:
-            - name: 'Source: [${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}]'
+            - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
               run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
             - name: Checkout ⬇️
-              uses: actions/checkout@v2.3.1
+              uses: actions/checkout@v3
               with:
                   fetch-depth: 0
                   ref: ${{ github.event.workflow_run.head_branch }}
-                  repository: ${{github.event.workflow_run.head_repository.full_name}}
+                  repository: ${{ github.event.workflow_run.head_repository.full_name }}
             - name: Setup Node 📦
               uses: actions/setup-node@v2.1.2
               with:
