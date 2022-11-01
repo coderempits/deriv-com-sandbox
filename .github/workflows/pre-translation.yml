@@ -3,7 +3,8 @@ on:
     pull_request:
         types: [opened, reopened, synchronize]
         branches:
-            - 'master*'
+            - 'main'
+            - 'master'
 
 jobs:
     check-translation-branch:
