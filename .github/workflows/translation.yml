@@ -1,10 +1,9 @@
 name: Translation
 on:
-    pull_request:
-        types: [opened, reopened, synchronize]
-        branches:
-            - 'main'
-            - 'master'
+  workflow_run:
+    workflows: ["Pre-push Translation"]
+    types:
+      - completed
 jobs:
     push-translation:
         runs-on: ubuntu-latest
@@ -16,6 +15,8 @@ jobs:
                 lang: [ar, bn, de, es, ko]
 
         steps:
+            - name: 'Checking what the fak is null'
+              run: echo '${{ toJson(github) }}'
             - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
               run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
             - name: Checkout ⬇️
