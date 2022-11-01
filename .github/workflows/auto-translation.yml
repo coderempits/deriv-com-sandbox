@@ -1,0 +1,32 @@
+name: Automated-Translation
+on:
+  workflow_run:
+    workflows: ["Push Translation"]
+    types:
+      - completed
+jobs:
+    automated-translation:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                # Add languages to automatically translate here. (2 letter language code)
+                # (Ref: https://www.loc.gov/standards/iso639-2/php/code_list.php)
+                # Be sure that the translation engine selected supports the language
+                lang: [ar, bn, de, es, ko]
+        steps:
+            - name: 'Running Automated Translation 🤖 [Language Code: ${{ matrix.lang }}]'
+              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} --language "${{ matrix.lang }}" -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
+            - name: Download and Commit Translations from MT
+              run: |
+                  crowdin download -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} && crowdin download -b  ${{ github.event.workflow_run.head_branch }} -l zh-CN -T ${{ secrets.CROWDIN_API_KEY }}
+                  if git diff --exit-code; then
+                    echo "No new automated translation data to commit 🫙"
+                  else
+                    echo "Committing new translation data 📝"
+                    echo "Setting up Git identity"
+                    git config --global user.name "DerivFE"
+                    git config --global user.email "80095553+DerivFE@users.noreply.github.com"
+                    git add -u
+                    git commit -m "translation: 📚 merging newly automatically translated strings"
+                    git push origin ${{ github.event.workflow_run.head_branch }}
+                  fi
