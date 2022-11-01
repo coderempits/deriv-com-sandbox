@@ -15,8 +15,6 @@ jobs:
                 lang: [ar, bn, de, es, ko]
 
         steps:
-            - name: 'Checking what the fak is null'
-              run: echo '${{ toJson(github) }}'
             - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
               run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
             - name: Checkout ⬇️
@@ -26,7 +24,7 @@ jobs:
                   ref: ${{ github.event.workflow_run.head_branch }}
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
             - name: Setup Node 📦
-              uses: actions/setup-node@v2.1.2
+              uses: actions/setup-node@v3
               with:
                   node-version: '16.x'
             - name: Installing Crowdin 📦
