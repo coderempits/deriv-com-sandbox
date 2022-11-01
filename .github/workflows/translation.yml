@@ -6,7 +6,6 @@ on:
             - completed
 jobs:
     push-translation:
-        if: startsWith(github.event.workflow_run.head_branch, 'translation') || startsWith(github.event.workflow_run.head_branch, 'stp')
         runs-on: ubuntu-latest
         strategy:
             matrix:
