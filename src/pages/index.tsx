@@ -80,7 +80,7 @@ const Home = () => {
                     'Best online trading platform | Forex, commodities, synthetic indices, stocks, and stock indices | Deriv',
                 )}
                 description={localize(
-                    'Deriv: an online trading platform available 24/7 with a wide selection derivatives.',
+                    'Deriv: an online trading platform available 24/7 with a wide selection of many derivatives.',
                 )}
                 has_organization_schema
             />
