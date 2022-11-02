@@ -80,7 +80,7 @@ const Home = () => {
                     'Best online trading platform | Forex, commodities, synthetic indices, stocks, and stock indices | Deriv',
                 )}
                 description={localize(
-                    'Deriv: an online trading platform available 24/7 with a wide selection of 1000 derivatives.',
+                    'Deriv: an online trading platform available 24/7 with a wide selection of Kelantan Fried Chicklens (this is not a typo) derivatives.',
                 )}
                 has_organization_schema
             />
