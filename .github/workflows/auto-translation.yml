@@ -7,12 +7,6 @@ on:
 jobs:
     automated-translation:
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                # Add languages to automatically translate here. (2 letter language code)
-                # (Ref: https://www.loc.gov/standards/iso639-2/php/code_list.php)
-                # Be sure that the translation engine selected supports the language
-                lang: [ar, bn, de, es-ES, ko]
         steps:
             - name: 'Source: [${{ github.event.workflow_run.head_repository.full_name }}/${{ github.event.workflow_run.head_branch }}]'
               run: echo 'Pushing strings and translations from ${{github.event.workflow_run.head_repository.full_name}}/${{ github.event.workflow_run.head_branch }}'
@@ -29,7 +23,7 @@ jobs:
             - name: Installing Crowdin 📦
               run: npm i -g @crowdin/cli
             - name: 'Running Automated Translation 🤖 [Language Code: ${{ matrix.lang }}]'
-              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} --language "${{ matrix.lang }}" -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
+              run: crowdin pre-translate --method mt --engine-id=${{ secrets.MT_ENGINE_ID }} --language "ar" --language "bn" --language "de" --language "es-ES"  --language "ko" -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} --verbose
             - name: Download and Commit Translations from MT
               run: |
                   crowdin download -b ${{ github.event.workflow_run.head_branch }} -T ${{ secrets.CROWDIN_API_KEY }} && crowdin download -b  ${{ github.event.workflow_run.head_branch }} -l zh-CN -T ${{ secrets.CROWDIN_API_KEY }}
