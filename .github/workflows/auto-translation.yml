@@ -1,12 +1,11 @@
 name: Automated-Translation
 on:
-  workflow_run:
-    workflows: ["Push Translation"]
-    types:
-      - completed
+    workflow_run:
+        workflows: ['Push Translation']
+        types:
+            - completed
 jobs:
     automated-translation:
-        if: startsWith(github.event.workflow_run.head_branch, 'translation') || startsWith(github.event.workflow_run.head_branch, 'stp')
         runs-on: ubuntu-latest
         strategy:
             matrix:
