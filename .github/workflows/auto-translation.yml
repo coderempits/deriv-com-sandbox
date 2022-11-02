@@ -1,9 +1,9 @@
 name: Automated-Translation
 on:
-  workflow_run:
-    workflows: ["Push Translation"]
-    types:
-      - completed
+    workflow_run:
+        workflows: ['Push Translation']
+        types:
+            - completed
 jobs:
     automated-translation:
         runs-on: ubuntu-latest
